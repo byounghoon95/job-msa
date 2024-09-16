@@ -1,13 +1,19 @@
 spring:
+#  datasource:
+#    url: jdbc:h2:mem:test
+#  h2:
+#    console:
+#      enabled: true
   datasource:
-    url: jdbc:h2:mem:test
-  h2:
-    console:
-      enabled: true
+    url: jdbc:postgresql://localhost:5432/jobapp
+    username: hoon
+    password: hoon
+
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
+    database: postgresql
 
 # include * 는 actuator 경로 전체 노출, 보안이 필요한 부분은 별개로 처리 필요
 management:
