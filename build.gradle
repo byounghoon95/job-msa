@@ -29,3 +29,8 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+// 도커 이미지 빌드용
+bootBuildImage {
+    imageName = 'leebyonghoon/my-app:latest'
+}
