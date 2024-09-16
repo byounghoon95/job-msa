@@ -43,7 +43,6 @@ public class JobController {
     }
 
     @PutMapping("/{id}")
-    //@RequestMapping(value = "/jobs/{id}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateJob(@PathVariable Long id,
                                             @RequestBody Job updatedJob){
         boolean updated = jobService.updateJob(id, updatedJob);
@@ -52,19 +51,3 @@ public class JobController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
-/*
-
-GET /jobs: Get all jobs
-GET /jobs/{id}: Get a specific job by ID
-POST /jobs: Create a new job (request body should contain the job details)
-DELETE /jobs/{id}: Delete a specific job by ID
-PUT /jobs/{id}: Update a specific job by ID (request body should contain the updated job details)
-
-Example API URLs:
-GET {base_url}/jobs
-GET {base_url}/jobs/1
-POST {base_url}/jobs
-DELETE {base_url}/jobs/1
-PUT {base_url}/jobs/1
-
-*/
