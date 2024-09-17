@@ -12,5 +12,11 @@ spring:
       ddl-auto: create-drop
     database: postgresql
 
+# zipkin
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+
 server:
   port: 8083

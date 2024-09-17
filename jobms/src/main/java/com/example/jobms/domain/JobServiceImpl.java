@@ -7,9 +7,6 @@ import com.example.jobms.external.Company;
 import com.example.jobms.external.Review;
 import com.example.jobms.infrastructure.JobRepository;
 import com.example.jobms.mapper.JobMapper;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
