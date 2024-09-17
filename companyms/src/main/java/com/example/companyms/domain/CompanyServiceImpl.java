@@ -1,8 +1,6 @@
 package com.example.companyms.domain;
 
-import com.example.companyms.domain.Company;
 import com.example.companyms.infrastructure.CompanyRepository;
-import com.example.companyms.domain.CompanyService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

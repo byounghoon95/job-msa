@@ -1,5 +1,7 @@
 package com.example.companyms.interfaces;
 
+import com.example.companyms.domain.Company;
+import com.example.companyms.domain.CompanyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
