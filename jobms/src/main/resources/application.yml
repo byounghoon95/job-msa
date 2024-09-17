@@ -3,12 +3,13 @@ spring:
     url: jdbc:postgresql://localhost:5432/job
     username: hoon
     password: hoon
-#  application:
-#    name: job-service
+  application:
+    name: job-service
 
   # config 를 통해 config server 의 application.name 을 가져올 수 있음
+  # optional 을 사용하면 config 서버가 죽었을 때 현재 yml의 설정을 가져와 에러를 피할 수 있음
   config:
-    import: configserver:http://localhost:8080
+    import: optional:configserver:http://localhost:8080
   profiles:
     active: prod
 
