@@ -1,8 +1,12 @@
 package com.example.jobms.domain;
 
+import com.example.jobms.dto.JobWithCompanyDTO;
+import com.example.jobms.external.Company;
 import com.example.jobms.infrastructure.JobRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,8 +19,20 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public List<Job> findAll() {
-        return jobRepository.findAll();
+    public List<JobWithCompanyDTO> findAll() {
+        List<Job> jobs = jobRepository.findAll();
+        List<JobWithCompanyDTO> jobWithCompanyDTOS = new ArrayList<>();
+
+        RestTemplate restTemplate = new RestTemplate();
+        for (Job job : jobs) {
+            JobWithCompanyDTO dto = new JobWithCompanyDTO();
+            dto.setJob(job);
+            Company company = restTemplate.getForObject("http://localhost:8081/companies/" + job.getCompanyId(), Company.class);
+            dto.setCompany(company);
+            jobWithCompanyDTOS.add(dto);
+        }
+
+        return jobWithCompanyDTOS;
     }
 
     @Override
