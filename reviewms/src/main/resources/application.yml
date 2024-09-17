@@ -3,6 +3,8 @@ spring:
     url: jdbc:postgresql://localhost:5432/review
     username: hoon
     password: hoon
+  application:
+    name: review-service
 
   jpa:
     show-sql: true

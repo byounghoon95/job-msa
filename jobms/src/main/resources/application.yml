@@ -3,6 +3,8 @@ spring:
     url: jdbc:postgresql://localhost:5432/job
     username: hoon
     password: hoon
+  application:
+    name: job-service
 
   jpa:
     show-sql: true
@@ -10,6 +12,15 @@ spring:
       ddl-auto: create-drop
     database: postgresql
 
+# Eureka
+# 아래 설정은 없어도 유레카에 자동으로 등록된다
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+
+
 server:
   port: 8082
-

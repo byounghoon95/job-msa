@@ -3,6 +3,8 @@ spring:
     url: jdbc:postgresql://localhost:5432/company
     username: hoon
     password: hoon
+  application:
+    name: company-service
 
   jpa:
     show-sql: true
