@@ -5,17 +5,27 @@ spring:
     gateway:
       routes: # yml ?? ?? ?? ? - ??
         - id: company_service
-          uri: http://localhost:8081
+          uri: lb://COMPANY-SERVICE # lb ?? ? ??? ???? ??
           predicates:
             - Path=/companies/**
         - id: job_service
-          uri: http://localhost:8082
+          uri: lb://JOB-SERVICE
           predicates:
             - Path=/jobs/**
         - id: review_service
-          uri: http://localhost:8083
+          uri: lb://REVIEW-SERVICE
           predicates:
             - Path=/reviews/**
+        - id: eureka-server
+          uri: http://localhost:8761
+          predicates:
+            - Path=/eureka/main
+          filters:
+            - SetPath=/ # http://localhost:8761/eureka/main -> http://localhost:8761/ ? ??
+        - id: eureka-server-static # eureka css ? ???? ?? ??
+          uri: http://localhost:8761
+          predicates:
+            - Path=/eureka/**
 
 # Eureka
 eureka:
