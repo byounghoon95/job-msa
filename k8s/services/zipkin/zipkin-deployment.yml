@@ -1,20 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rabbitmq
+  name: zipkin
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: rabbitmq
+      app: zipkin
   template:
     metadata:
       labels:
-        app: rabbitmq
+        app: zipkin
     spec:
       containers:
-        - name: rabbitmq
-          image: rabbitmq:3-management
+        - name: zipkin
+          image: openzipkin/zipkin
           ports:
-            - containerPort: 5672
-            - containerPort: 15672
+            - containerPort: 9411

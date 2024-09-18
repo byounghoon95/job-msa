@@ -1,12 +1,20 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: zipkin
+  name: rabbitmq
+  labels:
+    app: rabbitmq
+    type: LoadBalancer
 spec:
   selector:
-    app: zipkin
+    app: rabbitmq
+  type: NodePort
   ports:
-    - protocol: TCP
-      port: 9411
-      targetPort: 9411
-  type: LoadBalancer
+    - name: amqp
+      port: 5672
+      targetPort: 5672
+      nodePort: 30500
+    - name: management
+      port: 15672
+      targetPort: 15672
+      nodePort: 30501

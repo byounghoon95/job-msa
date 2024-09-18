@@ -1,0 +1,56 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/review
+    username: hoon
+    password: hoon
+  application:
+    name: review-service
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    database: postgresql
+
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: guest
+    password: guest
+
+# zipkin
+management:
+  zipkin:
+    tracing:
+      endpoint: http://zipkin:9411/api/v2/spans
+  tracing:
+    sampling:
+      probability: 1.0
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+job-service:
+  url: http://job
+
+coMpany-service:
+  url: http://company
+
+review-service:
+  url: http://review
+
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+
+server:
+  port: 9093
+#  port: 8083

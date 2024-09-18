@@ -1,0 +1,86 @@
+# 쿠버네티스는 호스트 명만 있으면 됨
+job-service:
+  url: http://job
+company-service:
+  url: http://company
+review-service:
+  url: http://review
+
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/job
+    username: hoon
+    password: hoon
+  application:
+    name: job-service
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    database: postgresql
+
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: guest
+    password: guest
+
+# Eureka, 쿠버네티스에선 유레카나 gateway 가 필요하지 않음
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+
+# zipkin
+management:
+  zipkin:
+    tracing:
+      endpoint: http://zipkin:9411/api/v2/spans
+  tracing:
+    sampling:
+      probability: 1.0
+  # actuator
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  health:
+    circuitbreakers:
+      enabled: true
+
+resilience4j:
+  instances:
+    companyBreaker: # 서킷브레이커 이름
+      baseConfig: default
+
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true # health 지표에 서킷브레이커 추가
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        permittedNumberOfCallsInHalfOpenState: 3
+        waitDurationInOpenState: 10s
+        failureRateThreshold: 50
+        register-health-indicator: true
+        automatic-transition-from-open-to-half-open-enabled: true
+        sliding-window-type: count_based
+  retry:
+    configs:
+      default:
+        max-attempts: 3
+        wait-duration: 2s
+  ratelimiter:
+    configs:
+      default:
+        timeout-duration: 0
+        limit-refresh-period: 4
+        limit-for-period: 2
+
+server:
+  port: 9091
+#  port: 8082

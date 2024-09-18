@@ -178,3 +178,12 @@ create database company;
 
 ctrl + d 로 컨테이너 밖으로 나올 수 있음
 ```
+
+### 쿠버네티스로 운영
+쿠버네티스로 할 땐 url 이 매번 바뀌어 테스트 시 minikube 를 통해 찾아야 한다.
+또한, cmd 에서 띄운 상태에서 이를 끄면 포트가 변경되기에 띄운 상태에서 테스트한다
+```text
+minikube service job --url
+minikube service company --url
+minikube service review --url
+```
