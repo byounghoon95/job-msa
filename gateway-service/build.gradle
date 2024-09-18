@@ -37,6 +37,10 @@ dependencyManagement {
     }
 }
 
+bootBuildImage {
+    imageName = 'leebyonghoon/gateway-service:latest'
+}
+
 tasks.named('test') {
     useJUnitPlatform()
 }

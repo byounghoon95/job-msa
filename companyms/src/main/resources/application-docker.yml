@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/company
+    url: jdbc:postgresql://postgres:5432/company
     username: hoon
     password: hoon
   application:
@@ -13,25 +13,35 @@ spring:
     database: postgresql
 
   rabbitmq:
-    host: localhost
+    host: rabbitmq
     port: 5672
     username: guest
     password: guest
 
 # zipkin
 management:
+  zipkin:
+    tracing:
+      endpoint: http://zipkin:9411/api/v2/spans
   tracing:
     sampling:
       probability: 1.0
 
 job-service:
-  url: http://localhost:9091
+  url: http://job:9091
 
 coMpany-service:
-  url: http://localhost:9090
+  url: http://company:9090
 
 review-service:
-  url: http://localhost:9093
+  url: http://review:9093
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
 
 server:
   port: 9090

@@ -46,6 +46,10 @@ dependencyManagement {
 	}
 }
 
+bootBuildImage {
+	imageName = 'leebyonghoon/job-service:latest'
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }

@@ -1,17 +1,10 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/job
+    url: jdbc:postgresql://postgres:5432/job
     username: hoon
     password: hoon
   application:
     name: job-service
-
-  # config 를 통해 config server 의 application.name 을 가져올 수 있음
-  # optional 을 사용하면 config 서버가 죽었을 때 현재 yml의 설정을 가져와 에러를 피할 수 있음
-  config:
-    import: optional:configserver:http://localhost:8080
-  profiles:
-    active: prod
 
   jpa:
     show-sql: true
@@ -26,16 +19,18 @@ spring:
     password: guest
 
 # Eureka
-# 아래 설정은 없어도 유레카에 자동으로 등록된다
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://eureka:8761/eureka/
     fetch-registry: true
     register-with-eureka: true
 
 # zipkin
 management:
+  zipkin:
+    tracing:
+      endpoint: http://zipkin:9411/api/v2/spans
   tracing:
     sampling:
       probability: 1.0
@@ -82,13 +77,13 @@ resilience4j:
         limit-for-period: 2
 
 job-service:
-  url: http://localhost:9091
+  url: http://job:9091
 
-coMpany-service:
-  url: http://localhost:9090
+company-service:
+  url: http://company:9090
 
 review-service:
-  url: http://localhost:9093
+  url: http://review:9093
 
 server:
   port: 9091

@@ -1,5 +1,5 @@
 services:
-  postgres:
+  postgres: # 호스트 네임
     container_name: postgres_container
     image: postgres
     environment:
@@ -44,9 +44,79 @@ services:
       - 5672:5672
       - 15672:15672
     networks:
+      - microservice-network
       - postgres
 
+  eureka:
+    image: leebyonghoon/eureka-service
+    container_name: eureka-service
+    ports:
+      - "8761:8761"
+    depends_on:
+      - rabbitmq
+      - zipkin
+      - postgres
+      - pgadmin
+    networks:
+      - microservice-network
+      - postgres
+
+  gateway-service:
+    image: leebyonghoon/gateway-service
+    container_name: gateway-service
+    ports:
+      - 9094:9094
+    depends_on:
+      - eureka
+    networks:
+      - microservice-network
+      - postgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
+  job:
+    image: leebyonghoon/job-service
+    container_name: job-service
+    ports:
+      - 9091:9091
+    depends_on:
+      - eureka
+    networks:
+      - microservice-network
+      - postgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka:8761/eureka
+
+  review:
+    image: leebyonghoon/review-service
+    container_name: review-service
+    ports:
+      - 9093:9093
+    depends_on:
+      - eureka
+    networks:
+      - microservice-network
+      - postgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
+  company:
+    image: leebyonghoon/company-service
+    container_name: company-service
+    ports:
+      - 9090:9090
+    depends_on:
+      - eureka
+    networks:
+      - microservice-network
+      - postgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
 networks:
+  microservice-network:
+    driver: bridge
   postgres:
     driver: bridge
 

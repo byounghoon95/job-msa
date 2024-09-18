@@ -34,6 +34,10 @@ dependencyManagement {
     }
 }
 
+bootBuildImage {
+    imageName = 'leebyonghoon/eureka-service:latest'
+}
+
 tasks.named('test') {
     useJUnitPlatform()
 }

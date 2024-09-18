@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: eureka-service
+
+eureka:
+  client:
+    register-with-eureka: false # Eureka 본인은 서비스에 등록될 필요 없음
+    fetch-registry: false
+
+server:
+  port: 8761
