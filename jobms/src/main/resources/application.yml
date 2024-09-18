@@ -47,6 +47,10 @@ management:
       enabled: true
 
 resilience4j:
+  instances:
+    companyBreaker: # 서킷브레이커 이름
+      baseConfig: default
+
   circuitbreaker:
     configs:
       default:
@@ -59,10 +63,11 @@ resilience4j:
         register-health-indicator: true
         automatic-transition-from-open-to-half-open-enabled: true
         sliding-window-type: count_based
-    instances:
-      companyBreaker: # 서킷브레이커 이름
-        baseConfig: default
-
+  retry:
+    configs:
+      default:
+        max-attempts: 3
+        wait-duration: 2s
 
 server:
   port: 9091

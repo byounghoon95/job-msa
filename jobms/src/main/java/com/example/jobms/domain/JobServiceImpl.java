@@ -8,6 +8,7 @@ import com.example.jobms.external.Review;
 import com.example.jobms.infrastructure.JobRepository;
 import com.example.jobms.mapper.JobMapper;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -31,7 +32,8 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    @CircuitBreaker(name = "companyBreaker", fallbackMethod = "companyBreakerFallback")
+//    @CircuitBreaker(name = "companyBreaker", fallbackMethod = "companyBreakerFallback")
+    @Retry(name = "companyBreaker", fallbackMethod = "companyBreakerFallback")
     public List<JobDTO> findAll() {
         return jobRepository.findAll().stream()
                 .map(this::convertToDto)
