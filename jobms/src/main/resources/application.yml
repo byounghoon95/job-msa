@@ -33,6 +33,37 @@ management:
   tracing:
     sampling:
       probability: 1.0
+  # actuator
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+
+  health:
+    circuitbreakers:
+      enabled: true
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true # health 지표에 서킷브레이커 추가
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        permittedNumberOfCallsInHalfOpenState: 3
+        waitDurationInOpenState: 10s
+        failureRateThreshold: 50
+        register-health-indicator: true
+        automatic-transition-from-open-to-half-open-enabled: true
+        sliding-window-type: count_based
+    instances:
+      companyBreaker: # 서킷브레이커 이름
+        baseConfig: default
+
 
 server:
-  port: 8082
+  port: 9091
+#  port: 8082
