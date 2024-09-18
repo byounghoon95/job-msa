@@ -68,6 +68,13 @@ resilience4j:
       default:
         max-attempts: 3
         wait-duration: 2s
+  ratelimiter:
+    configs:
+      default:
+        timeout-duration: 0
+        limit-refresh-period: 4
+        limit-for-period: 2
+
 
 server:
   port: 9091
