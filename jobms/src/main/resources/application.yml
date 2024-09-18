@@ -19,6 +19,12 @@ spring:
       ddl-auto: create-drop
     database: postgresql
 
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
 # Eureka
 # 아래 설정은 없어도 유레카에 자동으로 등록된다
 eureka:

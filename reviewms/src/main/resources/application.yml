@@ -12,6 +12,12 @@ spring:
       ddl-auto: create-drop
     database: postgresql
 
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
 # zipkin
 management:
   tracing:
